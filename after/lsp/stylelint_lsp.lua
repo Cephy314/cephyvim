@@ -84,6 +84,7 @@ return {
     end, {})
   end,
   -- Refer to https://github.com/stylelint/vscode-stylelint?tab=readme-ov-file#extension-settings for documentation.
+---@diagnostic disable-next-line: undefined-doc-name
   ---@type lspconfig.settings.stylelint_language_server
   settings = {
     stylelint = {

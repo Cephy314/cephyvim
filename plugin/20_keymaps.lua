@@ -117,7 +117,7 @@ local explore_zoxide = function()
         -- Change directory and open the file picker in that location.
         vim.api.nvim_set_current_dir(item)
         vim.schedule(function()
-        MiniPick.builtin.files() 
+        MiniPick.builtin.files()
       end)
     end,
     },

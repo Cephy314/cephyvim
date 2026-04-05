@@ -16,6 +16,10 @@
       "rev": "6ad251ef07dd4ba0cc725a5553cc76e9923f1a4a",
       "src": "https://github.com/nvimtools/none-ls.nvim"
     },
+    "nvim-colorizer.lua": {
+      "rev": "c8c2c19436d33165ec34fa90c975bc0a739fe3fb",
+      "src": "https://github.com/catgoose/nvim-colorizer.lua"
+    },
     "nvim-lspconfig": {
       "rev": "841c6d4139aedb8a3f2baf30cef5327371385b93",
       "src": "https://github.com/neovim/nvim-lspconfig"

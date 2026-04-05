@@ -179,6 +179,16 @@ later(function()
 	add({ "https://github.com/rafamadriz/friendly-snippets" })
 end)
 
+later(function()
+	add({ "https://github.com/catgoose/nvim-colorizer.lua" })
+
+	require("colorizer").setup({
+		options = {
+			parsers = { css = true },
+		},
+	})
+end)
+
 -- Honorable mentions =========================================================
 
 -- 'mason-org/mason.nvim' (a.k.a. "Mason") is a great tool (package manager) for
