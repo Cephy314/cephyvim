@@ -57,6 +57,7 @@ now_if_args(function()
 		"lua",
 		"vimdoc",
 		"markdown",
+		"markdown_inline",
 		"javascript",
 		"typescript",
 		"tsx",
@@ -70,6 +71,8 @@ now_if_args(function()
 		"svelte",
 		"typst",
 		"vue",
+		"yaml",
+		"toml",
 
 		-- Add here more languages with which you want to use tree-sitter
 		-- To see available languages:
@@ -189,32 +192,20 @@ later(function()
 	})
 end)
 
--- Honorable mentions =========================================================
-
--- 'mason-org/mason.nvim' (a.k.a. "Mason") is a great tool (package manager) for
--- installing external language servers, formatters, and linters. It provides
--- a unified interface for installing, updating, and deleting such programs.
---
--- The caveat is that these programs will be set up to be mostly used inside Neovim.
--- If you need them to work elsewhere, consider using other package managers.
---
--- You can use it like so:
--- now_if_args(function()
---   add({ 'https://github.com/mason-org/mason.nvim' })
---   require('mason').setup()
--- end)
-
--- Beautiful, usable, well maintained color schemes outside of 'mini.nvim' and
--- have full support of its highlight groups. Use if you don't like 'miniwinter'
--- enabled in 'plugin/30_mini.lua' or other suggested 'mini.hues' based ones.
--- Config.now(function()
---  -- Install only those that you need
---  add({
---    'https://github.com/sainnhe/everforest',
---    'https://github.com/Shatur/neovim-ayu',
---    'https://github.com/ellisonleao/gruvbox.nvim',
---  })
---
---   -- Enable only one
---   vim.cmd('color everforest')
--- end)
+later(function()
+	add({ "https://github.com/MeanderingProgrammer/render-markdown.nvim" })
+	require("render-markdown").setup({
+		completions = {
+			lsp = { enabled = true },
+			latex = {
+				enabled = true,
+				render_modes = true,
+				converter = { "utftex", "latex2text" },
+				highlight = "RenderMarkdownMath",
+				position = "center",
+				top_pad = 0,
+				bottom_pad = 0,
+			},
+		},
+	})
+end)
