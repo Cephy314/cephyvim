@@ -128,6 +128,7 @@ now_if_args(function()
 		"lua_ls",
 		"stylua",
 		"tailwindcss",
+    "harper_ls",
 	})
 end)
 
@@ -192,6 +193,7 @@ later(function()
 	})
 end)
 
+-- Render markdown with Latex support!
 later(function()
 	add({ "https://github.com/MeanderingProgrammer/render-markdown.nvim" })
 	require("render-markdown").setup({
