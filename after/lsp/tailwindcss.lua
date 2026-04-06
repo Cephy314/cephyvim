@@ -108,6 +108,7 @@ return {
 	---@type lspconfig.settings.tailwindcss
 	settings = {
 		tailwindCSS = {
+           classFunctions = {"tw","tv","cn","clsx"},
 			validate = true,
 			lint = {
 				cssConflict = "warning",
