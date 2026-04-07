@@ -145,3 +145,5 @@ vim.o.clipboard = "unnamedplus"
 -- Use `later()` to avoid sourcing `vim.diagnostic` on startup
 Config.later(function() vim.diagnostic.config(diagnostic_opts) end)
 -- stylua: ignore end
+
+vim.lsp.inlay_hint.enable(true)

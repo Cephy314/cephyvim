@@ -73,6 +73,7 @@ now_if_args(function()
 		"vue",
 		"yaml",
 		"toml",
+    "fish",
 
 		-- Add here more languages with which you want to use tree-sitter
 		-- To see available languages:
@@ -172,6 +173,10 @@ end)
 now_if_args(function()
 	add({ "https://github.com/pmizio/typescript-tools.nvim" })
 	require("typescript-tools").setup({})
+end)
+
+now_if_args(function()
+  add({ "https://github.com/mrcjkb/rustaceanvim"})
 end)
 -- Snippets ===================================================================
 
