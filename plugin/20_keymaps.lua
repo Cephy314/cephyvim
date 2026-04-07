@@ -10,14 +10,14 @@
 
 -- An example helper to create a Normal mode mapping
 local nmap = function(lhs, rhs, desc)
-  -- See `:h vim.keymap.set()`
-  vim.keymap.set('n', lhs, rhs, { desc = desc })
+	-- See `:h vim.keymap.set()`
+	vim.keymap.set("n", lhs, rhs, { desc = desc })
 end
 
 -- Paste linewise before/after current line
 -- Usage: `yiw` to yank a word and `]p` to put it on the next line.
-nmap('[p', '<Cmd>exe "iput! " . v:register<CR>', 'Paste Above')
-nmap(']p', '<Cmd>exe "iput "  . v:register<CR>', 'Paste Below')
+nmap("[p", '<Cmd>exe "iput! " . v:register<CR>', "Paste Above")
+nmap("]p", '<Cmd>exe "iput "  . v:register<CR>', "Paste Below")
 
 -- Many general mappings are created by 'mini.basics'. See 'plugin/30_mini.lua'
 
@@ -230,7 +230,10 @@ nmap_leader('mt', '<Cmd>lua MiniMap.toggle()<CR>',       'Toggle')
 nmap_leader('or', '<Cmd>lua MiniMisc.resize_window()<CR>', 'Resize to default width')
 nmap_leader('ot', '<Cmd>lua MiniTrailspace.trim()<CR>',    'Trim trailspace')
 nmap_leader('oz', '<Cmd>lua MiniMisc.zoom()<CR>',          'Zoom toggle')
-
+nmap_leader('oi', 
+function()
+  vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({0}),{0}) 
+end, 'Toggle Inlays')
 -- s is for 'Session'. Common usage:
 -- - `<Leader>sn` - start new session
 -- - `<Leader>sr` - read previously started session

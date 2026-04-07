@@ -178,6 +178,11 @@ end)
 now_if_args(function()
   add({ "https://github.com/mrcjkb/rustaceanvim"})
 end)
+
+now_if_args(function()
+  add({"https://github.com/saecki/crates.nvim"})
+  require('crates').setup()
+end)
 -- Snippets ===================================================================
 
 -- Although 'mini.snippets' provides functionality to manage snippet files, it
