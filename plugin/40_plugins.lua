@@ -129,9 +129,7 @@ now_if_args(function()
 		"lua_ls",
 		"stylua",
 		"tailwindcss",
-		"css_variables",
 		"cssls",
-		"cssmodules_ls",
 		"harper_ls",
 	})
 end)
