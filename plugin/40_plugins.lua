@@ -220,35 +220,52 @@ later(function()
 	})
 end)
 
--- Render markdown with Latex support!
 later(function()
-	add({ "https://github.com/MeanderingProgrammer/render-markdown.nvim" })
-	require("render-markdown").setup({
-		win_options = {
-			conceallevel = {
-				default = vim.api.nvim_get_option_value("conceallevel", {}),
-				rendered = 3,
-			},
-			concealcursor = {
-				default = vim.api.nvim_get_option_value("concealcursor", {}),
-				rendered = "nv",
-			},
-		},
+	add({ "https://github.com/OXY2DEV/markview.nvim" })
 
-		completions = {
-			lsp = { enabled = true },
-		},
-		latex = {
+	local presets = require("markview.presets")
+
+	require("markview").setup({
+		html = { enabled = true },
+		latex = { enabled = true },
+		markdown = {
 			enabled = true,
-			render_modes = true,
-			converter = { "utftex", "latex2text" },
-			highlight = "RenderMarkdownMath",
-			position = "center",
-			top_pad = 0,
-			bottom_pad = 0,
+			headings = presets.marker,
+			tables = presets.rounded,
+			block_quotes = presets.obsidian,
 		},
 	})
 end)
+
+-- -- Render markdown with Latex support!
+-- later(function()
+-- 	add({ "https://github.com/MeanderingProgrammer/render-markdown.nvim" })
+-- 	require("render-markdown").setup({
+-- 		win_options = {
+-- 			conceallevel = {
+-- 				default = vim.api.nvim_get_option_value("conceallevel", {}),
+-- 				rendered = 3,
+-- 			},
+-- 			concealcursor = {
+-- 				default = vim.api.nvim_get_option_value("concealcursor", {}),
+-- 				rendered = "nv",
+-- 			},
+-- 		},
+--
+-- 		completions = {
+-- 			lsp = { enabled = true },
+-- 		},
+-- 		latex = {
+-- 			enabled = true,
+-- 			render_modes = true,
+-- 			converter = { "utftex", "latex2text" },
+-- 			highlight = "RenderMarkdownMath",
+-- 			position = "center",
+-- 			top_pad = 0,
+-- 			bottom_pad = 0,
+-- 		},
+-- 	})
+-- end)
 
 -- Show implementations and references like JetBrains above symbols
 -- later(function()
