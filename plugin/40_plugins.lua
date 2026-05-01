@@ -224,28 +224,28 @@ end)
 later(function()
 	add({ "https://github.com/MeanderingProgrammer/render-markdown.nvim" })
 	require("render-markdown").setup({
+		win_options = {
+			conceallevel = {
+				default = vim.api.nvim_get_option_value("conceallevel", {}),
+				rendered = 3,
+			},
+			concealcursor = {
+				default = vim.api.nvim_get_option_value("concealcursor", {}),
+				rendered = "nv",
+			},
+		},
+
 		completions = {
 			lsp = { enabled = true },
-			win_options = {
-				conceallevel = {
-					default = vim.api.nvim_get_option_value("conceallevel", {}),
-					rendered = 3,
-				},
-				concealcursor = {
-					default = vim.api.nvim_get_option_value("concealcursor", {}),
-					rendered = "nv",
-				},
-			},
+		},
+		latex = {
+			enabled = true,
 			render_modes = true,
-			latex = {
-				enabled = true,
-				render_modes = true,
-				converter = { "utftex", "latex2text" },
-				highlight = "RenderMarkdownMath",
-				position = "center",
-				top_pad = 0,
-				bottom_pad = 0,
-			},
+			converter = { "utftex", "latex2text" },
+			highlight = "RenderMarkdownMath",
+			position = "center",
+			top_pad = 0,
+			bottom_pad = 0,
 		},
 	})
 end)
