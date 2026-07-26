@@ -67,14 +67,13 @@ now_if_args(function()
 		"rust",
 		"html",
 		"latex",
-		"norg",
 		"svelte",
 		"typst",
 		"vue",
 		"yaml",
 		"toml",
 		"fish",
-
+		"python",
 		-- Add here more languages with which you want to use tree-sitter
 		-- To see available languages:
 		-- - Execute `:=require('nvim-treesitter').get_available()`
@@ -133,6 +132,7 @@ now_if_args(function()
 		"harper_ls",
 	})
 end)
+
 -- vim.lsp.codelens.enable(true)
 -- Formatting =================================================================
 
@@ -220,114 +220,93 @@ later(function()
 	})
 end)
 
+-- Render markdown with Latex support!
+
 later(function()
-	add({ "https://github.com/OXY2DEV/markview.nvim" })
-
-	local presets = require("markview.presets")
-
-	require("markview").setup({
-		html = { enabled = true },
-		latex = { enabled = true },
-		markdown = {
-			enabled = true,
-			headings = presets.marker,
-			tables = presets.rounded,
-			block_quotes = presets.obsidian,
+	add({ "https://github.com/MeanderingProgrammer/render-markdown.nvim" })
+	require("render-markdown").setup({
+		pipe_table = {
+			enabled = false,
+		},
+		completions = {
+			lsp = { enabled = true },
+			win_options = {
+				conceallevel = {
+					default = vim.api.nvim_get_option_value("conceallevel", {}),
+					rendered = 3,
+				},
+				concealcursor = {
+					default = vim.api.nvim_get_option_value("concealcursor", {}),
+					rendered = "nv",
+				},
+			},
+			render_modes = true,
+			latex = {
+				enabled = true,
+				render_modes = true,
+				converter = { "utftex", "latex2text" },
+				highlight = "RenderMarkdownMath",
+				position = "center",
+				top_pad = 0,
+				bottom_pad = 0,
+			},
 		},
 	})
 end)
 
--- -- Render markdown with Latex support!
--- later(function()
--- 	add({ "https://github.com/MeanderingProgrammer/render-markdown.nvim" })
--- 	require("render-markdown").setup({
--- 		win_options = {
--- 			conceallevel = {
--- 				default = vim.api.nvim_get_option_value("conceallevel", {}),
--- 				rendered = 3,
--- 			},
--- 			concealcursor = {
--- 				default = vim.api.nvim_get_option_value("concealcursor", {}),
--- 				rendered = "nv",
--- 			},
--- 		},
---
--- 		completions = {
--- 			lsp = { enabled = true },
--- 		},
--- 		latex = {
--- 			enabled = true,
--- 			render_modes = true,
--- 			converter = { "utftex", "latex2text" },
--- 			highlight = "RenderMarkdownMath",
--- 			position = "center",
--- 			top_pad = 0,
--- 			bottom_pad = 0,
--- 		},
--- 	})
--- end)
+later(function()
+	add({ "https://github.com/ice345/markdown-table-wrap.nvim" })
+	require("markdown-table-wrap").setup({
+		max_width_ratio = 0.9,
+		min_col_width = 8,
+		max_col_width = 80,
+		border = "rounded",
+		use_unicode_border = true,
+		fit_to_window = true,
+		row_separator = true,
+		preview_mode = "inline",
+		inline_mode = "replace",
+		inline_position = "above",
+		dim_source = true,
+		auto_preview = true,
+		render_all = true,
+		auto_preview_in_insert = false,
+		clear_on_cursor_leave = true,
+		clear_on_insert = true,
+		clear_on_visual = true,
+		highlight_preset = "teide",
+		themes = {
+			teide = {
+				border = { fg = "#75a0d6" },
+				inline = { fg = "#cdd6f4" },
+				source = { link = "Comment" },
+				header = { fg = "#5CCEFF", bold = true },
+				code = { fg = "#5CCEFF", bg = "#1e2329" },
+				link = { fg = "#41FFDC", underline = true },
+				bold = { bold = true },
+				italic = { italic = true },
+				strike = { strikethrough = true },
+				mark = { fg = "#b2a3ff", bg = "#f9e2af" },
+				wiki_link = { fg = "#cba6f7", underline = true },
+				image = { fg = "#94e2d5" },
+				blank = { link = "Normal" },
+			},
+		},
+	})
+end)
 
--- Show implementations and references like JetBrains above symbols
--- later(function()
--- 	add({ "https://github.com/Wansmer/symbol-usage.nvim" })
--- local function h(name) return vim.api.nvim_get_hl(0, { name = name }) end
--- vim.api.nvim_set_hl(0, 'SymbolUsageRounding', { fg = h('CursorLine').bg, italic = true })
--- vim.api.nvim_set_hl(0, 'SymbolUsageContent', { bg = h('CursorLine').bg, fg = h('Comment').fg, italic = true })
--- vim.api.nvim_set_hl(0, 'SymbolUsageRef', { fg = h('Function').fg, bg = h('CursorLine').bg, italic = true })
--- vim.api.nvim_set_hl(0, 'SymbolUsageDef', { fg = h('Type').fg, bg = h('CursorLine').bg, italic = true })
--- vim.api.nvim_set_hl(0, 'SymbolUsageImpl', { fg = h('@keyword').fg, bg = h('CursorLine').bg, italic = true })
--- 	local function text_format(symbol)
--- 		local res = {}
---
--- 		local round_start = { "", "SymbolUsageRounding" }
--- 		local round_end = { "", "SymbolUsageRounding" }
---
--- 		-- Indicator that shows if there are any other symbols in the same line
--- 		local stacked_functions_content = symbol.stacked_count > 0 and ("+%s"):format(symbol.stacked_count) or ""
---
--- 		if symbol.references then
--- 			local usage = symbol.references <= 1 and "usage" or "usages"
--- 			local num = symbol.references == 0 and "no" or symbol.references
--- 			table.insert(res, round_start)
--- 			table.insert(res, { "󰌹 ", "SymbolUsageRef" })
--- 			table.insert(res, { ("%s %s"):format(num, usage), "SymbolUsageContent" })
--- 			table.insert(res, round_end)
--- 		end
---
--- 		if symbol.definition then
--- 			if #res > 0 then
--- 				table.insert(res, { " ", "NonText" })
--- 			end
--- 			table.insert(res, round_start)
--- 			table.insert(res, { "󰳽 ", "SymbolUsageDef" })
--- 			table.insert(res, { symbol.definition .. " defs", "SymbolUsageContent" })
--- 			table.insert(res, round_end)
--- 		end
---
--- 		if symbol.implementation then
--- 			if #res > 0 then
--- 				table.insert(res, { " ", "NonText" })
--- 			end
--- 			table.insert(res, round_start)
--- 			table.insert(res, { "󰡱 ", "SymbolUsageImpl" })
--- 			table.insert(res, { symbol.implementation .. " impls", "SymbolUsageContent" })
--- 			table.insert(res, round_end)
--- 		end
---
--- 		if stacked_functions_content ~= "" then
--- 			if #res > 0 then
--- 				table.insert(res, { " ", "NonText" })
--- 			end
--- 			table.insert(res, round_start)
--- 			table.insert(res, { " ", "SymbolUsageImpl" })
--- 			table.insert(res, { stacked_functions_content, "SymbolUsageContent" })
--- 			table.insert(res, round_end)
--- 		end
---
--- 		return res
--- 	end
--- 	require("symbol-usage").setup({
---     text_format = text_format,
---     vt_position = 'end_of_line',
---   })
--- end)
+-- highlights = {
+-- 	border = { fg = "#f97791" },
+-- 	inline = { fg = "#cdd6f4" },
+-- 	source = { link = "Comment" },
+-- 	header = { fg = "#f9e2af", bold = true },
+-- 	code = { fg = "#38FFA5" },
+-- 	bold = { fg = "#FFFFFF", bold = true },
+-- 	wiki_link = { fg = "#cba6f7", underline = true },
+-- 	image = { fg = "#94e2d5" },
+-- 	italic = { fg = "#0AE7FF", italic = true },
+-- 	strike = { fg = "#f97791", strikethrough = true },
+-- 	mark = { fg = "#171B20", bg = "#E7EAEE" },
+-- 	link = { fg = "#5CCEFF", underline = true },
+-- 	blank = { link = "Normal" },
+-- },

@@ -1,59 +1,59 @@
 {
   "plugins": {
     "conform.nvim": {
-      "rev": "086a40dc7ed8242c03be9f47fbcee68699cc2395",
+      "rev": "619363c30309d29ffa631e67c8183f2a72caa373",
       "src": "https://github.com/stevearc/conform.nvim"
     },
     "crates.nvim": {
-      "rev": "0f536967abd097d9a4275087483f15d012418740",
+      "rev": "694357861ec9ebf12475ddcdd04ea45a0923c32d",
       "src": "https://github.com/saecki/crates.nvim"
     },
     "friendly-snippets": {
       "rev": "6cd7280adead7f586db6fccbd15d2cac7e2188b9",
       "src": "https://github.com/rafamadriz/friendly-snippets"
     },
-    "markview.nvim": {
-      "rev": "8b82823bbe7b452c5920ab22947e186c6cb067b4",
-      "src": "https://github.com/OXY2DEV/markview.nvim"
+    "markdown-table-wrap.nvim": {
+      "rev": "ae74fb9a74a52d62966611d2cfb3e25f17a583ee",
+      "src": "https://github.com/ice345/markdown-table-wrap.nvim"
     },
     "mini.nvim": {
-      "rev": "59f09943573c5348ca6c88393fa09ce3b66a7818",
+      "rev": "946ae64e0ee807ae3c41f382f0114b4ed4915b2c",
       "src": "https://github.com/nvim-mini/mini.nvim"
     },
     "none-ls.nvim": {
-      "rev": "6ad251ef07dd4ba0cc725a5553cc76e9923f1a4a",
+      "rev": "01f8e62ea11603e59ad9ff7afcfa94fd183f76d6",
       "src": "https://github.com/nvimtools/none-ls.nvim"
     },
     "nvim-colorizer.lua": {
-      "rev": "c8c2c19436d33165ec34fa90c975bc0a739fe3fb",
+      "rev": "72a05f62c52241bc7441c820eb53946f92b2e6a4",
       "src": "https://github.com/catgoose/nvim-colorizer.lua"
     },
     "nvim-lspconfig": {
-      "rev": "841c6d4139aedb8a3f2baf30cef5327371385b93",
+      "rev": "d592c1e6ad9a0a01b3d5ed3f0345d68407167181",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-treesitter": {
-      "rev": "0e0db770f2a3691fae478798342f4ac431accefd",
+      "rev": "8b3a191c015dd66a92d51a112ed96af0aac13b63",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter"
     },
     "nvim-treesitter-textobjects": {
-      "rev": "93d60a475f0b08a8eceb99255863977d3a25f310",
+      "rev": "898ee307df58f854d11cd7edd06472574d48014e",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter-textobjects"
     },
     "plenary.nvim": {
-      "rev": "b9fd5226c2f76c951fc8ed5923d85e4de065e509",
+      "rev": "74b06c6c75e4eeb3108ec01852001636d85a932b",
       "src": "https://github.com/nvim-lua/plenary.nvim"
     },
     "render-markdown.nvim": {
-      "rev": "687de727de91a63b0bff9cff4e71d73f9d40fa77",
+      "rev": "f422cb5c6855f150e2ddcfaf44e7157b98b34f6a",
       "src": "https://github.com/MeanderingProgrammer/render-markdown.nvim"
     },
     "rustaceanvim": {
-      "rev": "6c4c158b23690ef7cc65349077eae29a6be35a6c",
+      "rev": "32969563686a262ef91161b54a1cac66b2d5a766",
       "src": "https://github.com/mrcjkb/rustaceanvim"
     },
     "snacks.nvim": {
-      "rev": "ad9ede6a9cddf16cedbd31b8932d6dcdee9b716e",
+      "rev": "882c996cf28183f4d63640de0b4c02ec886d01f2",
       "src": "https://github.com/folke/snacks.nvim"
     },
     "symbol-usage.nvim": {
