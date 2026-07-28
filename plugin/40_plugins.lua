@@ -74,7 +74,7 @@ now_if_args(function()
 		"toml",
 		"fish",
 		"python",
-		-- Add here more languages with which you want to use tree-sitter
+		-- Add here more languages with which you want to use Tree-sitter
 		-- To see available languages:
 		-- - Execute `:=require('nvim-treesitter').get_available()`
 		-- - Visit 'SUPPORTED_LANGUAGES.md' file at
@@ -88,7 +88,7 @@ now_if_args(function()
 		require("nvim-treesitter").install(to_install)
 	end
 
-	-- Enable tree-sitter after opening a file for a target language
+	-- Enable Tree-sitter after opening a file for a target language
 	local filetypes = {}
 	for _, lang in ipairs(languages) do
 		for _, ft in ipairs(vim.treesitter.language.get_filetypes(lang)) do
@@ -130,6 +130,7 @@ now_if_args(function()
 		"tailwindcss",
 		"cssls",
 		"harper_ls",
+		"pyright",
 	})
 end)
 
@@ -258,13 +259,13 @@ later(function()
 	add({ "https://github.com/ice345/markdown-table-wrap.nvim" })
 	require("markdown-table-wrap").setup({
 		max_width_ratio = 0.9,
-		min_col_width = 8,
+		min_col_width = 6,
 		max_col_width = 80,
 		border = "rounded",
 		use_unicode_border = true,
 		fit_to_window = true,
 		row_separator = true,
-		preview_mode = "inline",
+		preview_mode = "render",
 		inline_mode = "replace",
 		inline_position = "above",
 		dim_source = true,
@@ -295,18 +296,22 @@ later(function()
 	})
 end)
 
--- highlights = {
--- 	border = { fg = "#f97791" },
--- 	inline = { fg = "#cdd6f4" },
--- 	source = { link = "Comment" },
--- 	header = { fg = "#f9e2af", bold = true },
--- 	code = { fg = "#38FFA5" },
--- 	bold = { fg = "#FFFFFF", bold = true },
--- 	wiki_link = { fg = "#cba6f7", underline = true },
--- 	image = { fg = "#94e2d5" },
--- 	italic = { fg = "#0AE7FF", italic = true },
--- 	strike = { fg = "#f97791", strikethrough = true },
--- 	mark = { fg = "#171B20", bg = "#E7EAEE" },
--- 	link = { fg = "#5CCEFF", underline = true },
--- 	blank = { link = "Normal" },
--- },
+later(function()
+	add({ "https://github.com/rachartier/tiny-inline-diagnostic.nvim" })
+	require("tiny-inline-diagnostic").setup({
+		preset = "modern",
+	})
+end)
+
+later(function()
+	add({ "https://github.com/sphamba/smear-cursor.nvim" })
+	require("smear_cursor").setup({
+		stiffness = 0.8, -- 0.6      [0, 1]
+		trailing_stiffness = 0.6, -- 0.45     [0, 1]
+		stiffness_insert_mode = 0.7, -- 0.5      [0, 1]
+		trailing_stiffness_insert_mode = 0.7, -- 0.5      [0, 1]
+		damping = 0.95, -- 0.85     [0, 1]
+		damping_insert_mode = 0.95, -- 0.9      [0, 1]
+		distance_stop_animating = 0.5, -- 0.1      > 0
+	})
+end)

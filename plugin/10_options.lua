@@ -108,57 +108,63 @@ Config.new_autocmd('FileType', nil, f, "Proper 'formatoptions'")
 -- Neovim has built-in support for showing diagnostic messages. This configures
 -- a more conservative display while still being useful.
 -- See `:h vim.diagnostic` and `:h vim.diagnostic.config()`.
-local diagnostic_opts = {
-  -- Show signs on top of any other sign, but only for warnings and errors
-  signs = { priority = 9999, severity = { min = 'WARN', max = 'ERROR' } },
+-- local diagnostic_opts = {
+--   -- Show signs on top of any other sign, but only for warnings and errors
+--   signs = {
+--     priority = 9999,
+--     severity = { min = vim.diagnostic.severity.HINT }
+--   },
+--
+--   -- Show all diagnostics as underline (for their messages type `<Leader>ld`)
+--   underline = { severity = vim.diagnostic.severity.HINT },
+--
+--   -- Show more details immediately for errors on the current line
+--   virtual_lines = { current_line = true, severity = vim.diagnostic.severity.WARN },
+--   virtual_text = {
+--     severity = { min = vim.diagnostic.severity.WARN }
+--   },
+--
+--
+--   -- Don't update diagnostics when typing
+--   update_in_insert = false,
+-- }
 
-  -- Show all diagnostics as underline (for their messages type `<Leader>ld`)
-  underline = true,
-
-  -- Show more details immediately for errors on the current line
-  virtual_lines = { current_line = true },
-  virtual_text = true,
-
-  -- Don't update diagnostics when typing
-  update_in_insert = false,
-}
-
--- Fun config for diagnostics.
-local og_virt_text
-local og_virt_line
-Config.new_autocmd({'CursorMoved', "DiagnosticChanged"},nil, function()
-  if og_virt_line == nil then
-    og_virt_line = vim.diagnostic.config().virtual_lines
-  end
-
-  -- ignore if virtual_lines.current_line is disabled.
-  if not (og_virt_line and og_virt_line.current_line) then
-    if og_virt_text then
-      vim.diagnostic.config({virtual_text = og_virt_text })
-      og_virt_text = nil
-    end
-    return
-  end
-
-  if og_virt_text == nil then
-    og_virt_text = vim.diagnostic.config().virtual_text
-  end
-
-  local lnum = vim.api.nvim_win_get_cursor(0)[1] -1
-
-  if vim.tbl_isempty(vim.diagnostic.get(0, { lnum = lnum })) then
-    vim.diagnostic.config({ virtual_text = og_virt_text })
-    else
-      vim.diagnostic.config({ virtual_text = false })
-    end
-  end
-)
+-- -- Fun config for diagnostics.
+-- local og_virt_text
+-- local og_virt_line
+-- Config.new_autocmd({'CursorMoved', "DiagnosticChanged"},nil, function()
+--   if og_virt_line == nil then
+--     og_virt_line = vim.diagnostic.config().virtual_lines
+--   end
+--
+--   -- Ignore if `virtual_lines.current_line` is disabled.
+--   if not (og_virt_line and og_virt_line.current_line) then
+--     if og_virt_text then
+--       vim.diagnostic.config({virtual_text = og_virt_text })
+--       og_virt_text = nil
+--     end
+--     return
+--   end
+--
+--   if og_virt_text == nil then
+--     og_virt_text = vim.diagnostic.config().virtual_text
+--   end
+--
+--   local lnum = vim.api.nvim_win_get_cursor(0)[1] -1
+--
+--   if vim.tbl_isempty(vim.diagnostic.get(0, { lnum = lnum })) then
+--     vim.diagnostic.config({ virtual_text = og_virt_text })
+--     else
+--       vim.diagnostic.config({ virtual_text = false })
+--     end
+--   end
+-- )
 
 Config.new_autocmd('ModeChanged', nil, function()
   pcall(vim.diagnostic.show)
 end)
 
--- configure clipboard.
+-- Configure clipboard.
 if vim.fn.has("wsl") == 1 then
   vim.g.clipboard = {
     name = "WslClipboard",
@@ -177,7 +183,7 @@ end
 vim.o.clipboard = "unnamedplus"
 
 -- Use `later()` to avoid sourcing `vim.diagnostic` on startup
-Config.later(function() vim.diagnostic.config(diagnostic_opts) end)
+-- Config.later(function() vim.diagnostic.config(diagnostic_opts) end)
 -- stylua: ignore end
 
-vim.lsp.inlay_hint.enable(true)
+-- vim.lsp.inlay_hint.enable(true)
