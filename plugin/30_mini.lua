@@ -313,7 +313,7 @@ end)
 -- - `:h MiniExtra.gen_ai_spec` - 'mini.ai' textobject specifications
 -- - `:h MiniExtra.gen_highlighter` - 'mini.hipatterns' highlighters
 later(function()
-	require("mini.extra").setup({true})
+	require("mini.extra").setup({ true })
 end)
 
 -- Extend and create a/i textobjects, like `:h a(`, `:h a'`, and more).

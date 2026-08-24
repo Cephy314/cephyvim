@@ -125,12 +125,14 @@ now_if_args(function()
 	-- Uncomment and tweak the following `vim.lsp.enable()` call to enable servers.
 	vim.lsp.enable({
 		-- For example, if `lua-language-server` is installed, use `'lua_ls'` entry
+		"jsonls",
 		"lua_ls",
 		"stylua",
 		"tailwindcss",
 		"cssls",
 		"harper_ls",
 		"pyright",
+		"ts_ls",
 	})
 end)
 
@@ -174,21 +176,21 @@ later(function()
 	})
 end)
 
-add({ "https://github.com/pmizio/typescript-tools.nvim" })
-
-local ts_tools_loaded = false
-local function setup_ts_tools()
-	if ts_tools_loaded then
-		return
-	end
-	ts_tools_loaded = true
-	require("typescript-tools").setup({})
-end
-
-Config.on_filetype("javascript", setup_ts_tools)
-Config.on_filetype("javascriptreact", setup_ts_tools)
-Config.on_filetype("typescript", setup_ts_tools)
-Config.on_filetype("typescriptreact", setup_ts_tools)
+-- add({ "https://github.com/pmizio/typescript-tools.nvim" })
+--
+-- local ts_tools_loaded = false
+-- local function setup_ts_tools()
+-- 	if ts_tools_loaded then
+-- 		return
+-- 	end
+-- 	ts_tools_loaded = true
+-- 	require("typescript-tools").setup({})
+-- end
+--
+-- Config.on_filetype("javascript", setup_ts_tools)
+-- Config.on_filetype("javascriptreact", setup_ts_tools)
+-- Config.on_filetype("typescript", setup_ts_tools)
+-- Config.on_filetype("typescriptreact", setup_ts_tools)
 
 now_if_args(function()
 	add({ "https://github.com/mrcjkb/rustaceanvim" })
@@ -211,50 +213,47 @@ later(function()
 	add({ "https://github.com/rafamadriz/friendly-snippets" })
 end)
 
-later(function()
-	add({ "https://github.com/catgoose/nvim-colorizer.lua" })
+-- later(function()
+-- 	add({ "https://github.com/catgoose/nvim-colorizer.lua" })
+--
+-- 	require("colorizer").setup({
+-- 		options = {
+-- 			parsers = { css = true },
+-- 		},
+-- 	})
+-- end)
 
-	require("colorizer").setup({
-		options = {
-			parsers = { css = true },
+later(function()
+	add({ "https://github.com/OXY2DEV/markview.nvim" })
+	require("markview").setup({
+		markdown = {
+			enabled = true,
+			wrap = true,
 		},
 	})
 end)
 
 -- Render markdown with Latex support!
+--
+-- later(function()
+-- 	add({ "https://github.com/MeanderingProgrammer/render-markdown.nvim" })
+-- 	require("render-markdown").setup({
+-- 		-- anti_conceal = { enabled = true },
+-- 		pipe_table = {
+-- 			enabled = false,
+-- 		},
+-- 		completions = {
+-- 			lsp = { enabled = true },
+-- 		},
+-- 		win_options = {
+-- 			conceallevel = { default = vim.o.conceallevel, rendered = 2 },
+-- 		},
+-- 		link = { enabled = false },
+-- 	})
+-- end)
+--
 
-later(function()
-	add({ "https://github.com/MeanderingProgrammer/render-markdown.nvim" })
-	require("render-markdown").setup({
-		pipe_table = {
-			enabled = false,
-		},
-		completions = {
-			lsp = { enabled = true },
-			win_options = {
-				conceallevel = {
-					default = vim.api.nvim_get_option_value("conceallevel", {}),
-					rendered = 3,
-				},
-				concealcursor = {
-					default = vim.api.nvim_get_option_value("concealcursor", {}),
-					rendered = "nv",
-				},
-			},
-			render_modes = true,
-			latex = {
-				enabled = true,
-				render_modes = true,
-				converter = { "utftex", "latex2text" },
-				highlight = "RenderMarkdownMath",
-				position = "center",
-				top_pad = 0,
-				bottom_pad = 0,
-			},
-		},
-	})
-end)
-
+-- MARKKDOWN TABLE WRAP
 later(function()
 	add({ "https://github.com/ice345/markdown-table-wrap.nvim" })
 	require("markdown-table-wrap").setup({
@@ -265,7 +264,7 @@ later(function()
 		use_unicode_border = true,
 		fit_to_window = true,
 		row_separator = true,
-		preview_mode = "render",
+		preview_mode = "reader",
 		inline_mode = "replace",
 		inline_position = "above",
 		dim_source = true,
@@ -293,6 +292,7 @@ later(function()
 				blank = { link = "Normal" },
 			},
 		},
+		link = false,
 	})
 end)
 
@@ -314,4 +314,18 @@ later(function()
 		damping_insert_mode = 0.95, -- 0.9      [0, 1]
 		distance_stop_animating = 0.5, -- 0.1      > 0
 	})
+end)
+
+later(function()
+	vim.pack.add({
+		{
+			src = "https://github.com/eero-lehtinen/oklch-color-picker.nvim",
+			version = vim.version.range("*"),
+		},
+	})
+	require("oklch-color-picker").setup({})
+
+	vim.keymap.set("n", "<leader>c", function()
+		require("oklch-color-picker").pick_under_cursor()
+	end, { desc = "Color pick under cursor" })
 end)
