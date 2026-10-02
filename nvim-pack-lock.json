@@ -16,6 +16,10 @@
       "rev": "ae74fb9a74a52d62966611d2cfb3e25f17a583ee",
       "src": "https://github.com/ice345/markdown-table-wrap.nvim"
     },
+    "markview-smart-tables.nvim": {
+      "rev": "01134a5bf48f1b7abe27b26a6b89262685bb309f",
+      "src": "https://github.com/gunasekar/markview-smart-tables.nvim"
+    },
     "markview.nvim": {
       "rev": "2471f4097f8561a6880a0fe05ee0f21cbc82b374",
       "src": "https://github.com/OXY2DEV/markview.nvim"
@@ -88,6 +92,10 @@
     "typescript-tools.nvim": {
       "rev": "c2f5910074103705661e9651aa841e0d7eea9932",
       "src": "https://github.com/pmizio/typescript-tools.nvim"
+    },
+    "typst-preview.nvim": {
+      "rev": "87db18b8d19c8b0eed399f52e4c527ce5afe4817",
+      "src": "https://github.com/chomosuke/typst-preview.nvim"
     }
   }
 }

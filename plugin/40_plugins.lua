@@ -130,9 +130,10 @@ now_if_args(function()
 		"stylua",
 		"tailwindcss",
 		"cssls",
-		"harper_ls",
+		-- "harper_ls",
 		"pyright",
 		"ts_ls",
+		"typos_lsp",
 	})
 end)
 
@@ -176,22 +177,6 @@ later(function()
 	})
 end)
 
--- add({ "https://github.com/pmizio/typescript-tools.nvim" })
---
--- local ts_tools_loaded = false
--- local function setup_ts_tools()
--- 	if ts_tools_loaded then
--- 		return
--- 	end
--- 	ts_tools_loaded = true
--- 	require("typescript-tools").setup({})
--- end
---
--- Config.on_filetype("javascript", setup_ts_tools)
--- Config.on_filetype("javascriptreact", setup_ts_tools)
--- Config.on_filetype("typescript", setup_ts_tools)
--- Config.on_filetype("typescriptreact", setup_ts_tools)
-
 now_if_args(function()
 	add({ "https://github.com/mrcjkb/rustaceanvim" })
 end)
@@ -213,88 +198,24 @@ later(function()
 	add({ "https://github.com/rafamadriz/friendly-snippets" })
 end)
 
--- later(function()
--- 	add({ "https://github.com/catgoose/nvim-colorizer.lua" })
---
--- 	require("colorizer").setup({
--- 		options = {
--- 			parsers = { css = true },
--- 		},
--- 	})
--- end)
-
 later(function()
 	add({ "https://github.com/OXY2DEV/markview.nvim" })
+	add({ "https://github.com/gunasekar/markview-smart-tables.nvim" })
+	require("markview-smart-tables").setup({ wrap_width = 0.9 })
 	require("markview").setup({
+		renderers = {
+			markdown_table = function(buffer, item)
+				require("markview-smart-tables").render(buffer, item)
+			end,
+		},
+
 		markdown = {
 			enabled = true,
 			wrap = true,
+			tables = { enable = true },
 		},
 	})
 end)
-
--- Render markdown with Latex support!
---
--- later(function()
--- 	add({ "https://github.com/MeanderingProgrammer/render-markdown.nvim" })
--- 	require("render-markdown").setup({
--- 		-- anti_conceal = { enabled = true },
--- 		pipe_table = {
--- 			enabled = false,
--- 		},
--- 		completions = {
--- 			lsp = { enabled = true },
--- 		},
--- 		win_options = {
--- 			conceallevel = { default = vim.o.conceallevel, rendered = 2 },
--- 		},
--- 		link = { enabled = false },
--- 	})
--- end)
---
-
--- MARKKDOWN TABLE WRAP
--- later(function()
--- 	add({ "https://github.com/ice345/markdown-table-wrap.nvim" })
--- 	require("markdown-table-wrap").setup({
--- 		max_width_ratio = 0.9,
--- 		min_col_width = 6,
--- 		max_col_width = 80,
--- 		border = "rounded",
--- 		use_unicode_border = true,
--- 		fit_to_window = true,
--- 		row_separator = true,
--- 		preview_mode = "reader",
--- 		inline_mode = "replace",
--- 		inline_position = "above",
--- 		dim_source = true,
--- 		auto_preview = true,
--- 		render_all = true,
--- 		auto_preview_in_insert = false,
--- 		clear_on_cursor_leave = true,
--- 		clear_on_insert = true,
--- 		clear_on_visual = true,
--- 		highlight_preset = "teide",
--- 		themes = {
--- 			teide = {
--- 				border = { fg = "#75a0d6" },
--- 				inline = { fg = "#cdd6f4" },
--- 				source = { link = "Comment" },
--- 				header = { fg = "#5CCEFF", bold = true },
--- 				code = { fg = "#5CCEFF", bg = "#1e2329" },
--- 				link = { fg = "#41FFDC", underline = true },
--- 				bold = { bold = true },
--- 				italic = { italic = true },
--- 				strike = { strikethrough = true },
--- 				mark = { fg = "#b2a3ff", bg = "#f9e2af" },
--- 				wiki_link = { fg = "#cba6f7", underline = true },
--- 				image = { fg = "#94e2d5" },
--- 				blank = { link = "Normal" },
--- 			},
--- 		},
--- 		link = false,
--- 	})
--- end)
 
 later(function()
 	add({ "https://github.com/rachartier/tiny-inline-diagnostic.nvim" })
