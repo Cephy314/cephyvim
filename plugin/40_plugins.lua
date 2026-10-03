@@ -177,8 +177,10 @@ later(function()
 	})
 end)
 
+-- rustaceanvim must be on the runtimepath before the first Rust buffer's
+-- FileType event fires, otherwise its 'ftplugin/rust.lua' never runs for it.
 now_if_args(function()
-	add({ "https://github.com/mrcjkb/rustaceanvim" })
+	add({ { src = "https://github.com/mrcjkb/rustaceanvim", version = vim.version.range("^9") } })
 end)
 
 now_if_args(function()
@@ -249,4 +251,22 @@ later(function()
 	vim.keymap.set("n", "<leader>c", function()
 		require("oklch-color-picker").pick_under_cursor()
 	end, { desc = "Color pick under cursor" })
+end)
+
+-- Neotest (Rust tests via rustaceanvim)
+later(function()
+	add({ "https://github.com/antoinemadec/FixCursorHold.nvim" })
+	add({ "https://github.com/nvim-neotest/nvim-nio" })
+	add({ "https://github.com/nvim-neotest/neotest" })
+
+	require("neotest").setup({
+		adapters = {
+			require("rustaceanvim.neotest"),
+		},
+	})
+end)
+
+later(function()
+	add({ "https://codeberg.org/mfussenegger/nvim-dap.git" })
+	local dap = require("dap")
 end)
