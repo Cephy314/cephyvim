@@ -101,6 +101,10 @@ now_if_args(function()
 	Config.new_autocmd("FileType", filetypes, ts_start, "Start tree-sitter")
 end)
 
+now_if_args(function()
+	add({ "https://github.com/mason-org/mason.nvim" })
+	require("mason").setup()
+end)
 -- Language servers ===========================================================
 
 -- Language Server Protocol (LSP) is a set of conventions that power creation of
@@ -200,21 +204,37 @@ later(function()
 	add({ "https://github.com/rafamadriz/friendly-snippets" })
 end)
 
-later(function()
-	add({ "https://github.com/OXY2DEV/markview.nvim" })
-	add({ "https://github.com/gunasekar/markview-smart-tables.nvim" })
-	require("markview-smart-tables").setup({ wrap_width = 0.9 })
-	require("markview").setup({
-		renderers = {
-			markdown_table = function(buffer, item)
-				require("markview-smart-tables").render(buffer, item)
-			end,
-		},
+-- Markview ===================================================================
+-- later(function()
+-- 	add({ "https://github.com/OXY2DEV/markview.nvim" })
+-- 	add({ "https://github.com/gunasekar/markview-smart-tables.nvim" })
+-- 	require("markview-smart-tables").setup({ wrap_width = 0.9 })
+-- 	require("markview").setup({
+-- 		renderers = {
+-- 			markdown_table = function(buffer, item)
+-- 				require("markview-smart-tables").render(buffer, item)
+-- 			end,
+-- 		},
+--
+-- 		markdown = {
+-- 			enabled = true,
+-- 			wrap = true,
+-- 			tables = { enable = true, use_virt_lines = true },
+-- 		},
+-- 	})
+-- end)
 
-		markdown = {
+-- Render-Markdown ============================================================
+later(function()
+	add({ "https://github.com/meanderingprogrammer/render-markdown.nvim" })
+	require("render-markdown").setup({
+		completions = { lsp = { enabled = true } },
+		anti_conceal = { enabled = false },
+		pipe_table = {
 			enabled = true,
-			wrap = true,
-			tables = { enable = true },
+			preset = "round",
+			min_width = 12,
+			-- render_modes = true,
 		},
 	})
 end)
