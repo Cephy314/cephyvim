@@ -138,6 +138,7 @@ now_if_args(function()
 		"pyright",
 		"ts_ls",
 		"typos_lsp",
+		"copilot",
 	})
 end)
 
@@ -289,4 +290,20 @@ end)
 later(function()
 	add({ "https://codeberg.org/mfussenegger/nvim-dap.git" })
 	local dap = require("dap")
+end)
+
+later(function()
+	local on_attach = function(ev)
+		local client = vim.lsp.get_client_by_id(ev.data.client_id)
+		if not (client and client:supports_method("textDocument/inlineCompletion", ev.buf)) then
+			return
+		end
+		vim.lsp.inline_completion.enable(true, { bufnr = ev.buf })
+		local map = function(lhs, rhs, desc)
+			vim.keymap.set("i", lhs, rhs, { buffer = ev.buf, desc = desc })
+		end
+		map("<M-l>", vim.lsp.inline_completion.get, "Accept AI suggestion")
+		map("<M-]>", vim.lsp.inline_completion.select, "Next AI suggestion")
+	end
+	Config.new_autocmd("LspAttach", nil, on_attach, "Enable inline completion")
 end)
