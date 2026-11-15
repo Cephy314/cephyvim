@@ -103,7 +103,16 @@ end)
 
 now_if_args(function()
 	add({ "https://github.com/mason-org/mason.nvim" })
-	require("mason").setup()
+	require("mason").setup({
+		ui = {
+			border = "rounded",
+			icons = {
+				package_installed = "✓",
+				package_pending = "➜",
+				package_uninstalled = "✗",
+			},
+		},
+	})
 end)
 -- Language servers ===========================================================
 
@@ -138,7 +147,7 @@ now_if_args(function()
 		"pyright",
 		"ts_ls",
 		"typos_lsp",
-		"copilot",
+		-- "copilot",
 	})
 end)
 
@@ -292,33 +301,33 @@ later(function()
 	local dap = require("dap")
 end)
 
-later(function()
-	local on_attach = function(ev)
-		local client = vim.lsp.get_client_by_id(ev.data.client_id)
-		if not (client and client:supports_method("textDocument/inlineCompletion", ev.buf)) then
-			return
-		end
-		vim.lsp.inline_completion.enable(true, { bufnr = ev.buf })
-		local map = function(lhs, rhs, desc)
-			vim.keymap.set("i", lhs, rhs, { buffer = ev.buf, desc = desc })
-		end
-		map("<M-l>", vim.lsp.inline_completion.get, "Accept AI suggestion")
-		-- Not `<M-]>`/`<M-[>`: WezTerm uses those to switch tabs
-		map("<M-j>", function()
-			vim.lsp.inline_completion.select({ count = 1 })
-		end, "Next AI suggestion")
-		map("<M-k>", function()
-			vim.lsp.inline_completion.select({ count = -1 })
-		end, "Prev AI suggestion")
-	end
-	Config.new_autocmd("LspAttach", nil, on_attach, "Enable inline completion")
-	-- Make ghost text more visible. Re-apply on colorscheme change as it resets highlights.
-	local set_ghost_hl = function()
-		-- `link` ignores other keys, so copy Comment's colors and add italic
-		local comment = vim.api.nvim_get_hl(0, { name = "Comment", link = false })
-		vim.api.nvim_set_hl(0, "ComplHint", vim.tbl_extend("force", comment, { italic = true }))
-		vim.api.nvim_set_hl(0, "ComplHintMore", { link = "Comment" })
-	end
-	set_ghost_hl()
-	Config.new_autocmd("ColorScheme", nil, set_ghost_hl, "Ghost text highlight")
-end)
+-- later(function()
+-- 	local on_attach = function(ev)
+-- 		local client = vim.lsp.get_client_by_id(ev.data.client_id)
+-- 		if not (client and client:supports_method("textDocument/inlineCompletion", ev.buf)) then
+-- 			return
+-- 		end
+-- 		vim.lsp.inline_completion.enable(true, { bufnr = ev.buf })
+-- 		local map = function(lhs, rhs, desc)
+-- 			vim.keymap.set("i", lhs, rhs, { buffer = ev.buf, desc = desc })
+-- 		end
+-- 		map("<M-l>", vim.lsp.inline_completion.get, "Accept AI suggestion")
+-- 		-- Not `<M-]>`/`<M-[>`: WezTerm uses those to switch tabs
+-- 		map("<M-j>", function()
+-- 			vim.lsp.inline_completion.select({ count = 1 })
+-- 		end, "Next AI suggestion")
+-- 		map("<M-k>", function()
+-- 			vim.lsp.inline_completion.select({ count = -1 })
+-- 		end, "Prev AI suggestion")
+-- 	end
+-- 	Config.new_autocmd("LspAttach", nil, on_attach, "Enable inline completion")
+-- 	-- Make ghost text more visible. Re-apply on colorscheme change as it resets highlights.
+-- 	local set_ghost_hl = function()
+-- 		-- `link` ignores other keys, so copy Comment's colors and add italic
+-- 		local comment = vim.api.nvim_get_hl(0, { name = "Comment", link = false })
+-- 		vim.api.nvim_set_hl(0, "ComplHint", vim.tbl_extend("force", comment, { italic = true }))
+-- 		vim.api.nvim_set_hl(0, "ComplHintMore", { link = "Comment" })
+-- 	end
+-- 	set_ghost_hl()
+-- 	Config.new_autocmd("ColorScheme", nil, set_ghost_hl, "Ghost text highlight")
+-- end)
