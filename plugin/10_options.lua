@@ -34,10 +34,11 @@ vim.cmd('filetype plugin indent on')
 if vim.fn.exists('syntax_on') ~= 1 then vim.cmd('syntax enable') end
 
 -- UI =========================================================================
+vim.o.termguicolors  = true
 vim.o.breakindent    = true       -- Indent wrapped lines to match line start
 vim.o.breakindentopt = 'list:-1'  -- Add padding for lists (if 'wrap' is set)
--- vim.o.colorcolumn    = '81,121'       -- Draw column on the right of maximum width
--- vim.api.nvim_set_hl(0, 'ColorColumn', {bg = '#333333'})
+vim.o.colorcolumn    = '101'       -- Draw column on the right of maximum width
+--vim.api.nvim_set_hl(0, 'ColorColumn', {bg = '#303030'})
 
 vim.o.cursorline     = true       -- Enable current line highlighting
 vim.o.linebreak      = true       -- Wrap lines at 'breakat' (if 'wrap' is set)
