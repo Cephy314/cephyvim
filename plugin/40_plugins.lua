@@ -239,7 +239,7 @@ later(function()
 	add({ "https://github.com/meanderingprogrammer/render-markdown.nvim" })
 	require("render-markdown").setup({
 		completions = { lsp = { enabled = true } },
-		anti_conceal = { enabled = false },
+		anti_conceal = { enabled = true },
 		pipe_table = {
 			enabled = true,
 			preset = "round",
